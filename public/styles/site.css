@@ -1,0 +1,189 @@
+/*
+ * Site-wide styles for engineer.rakuen-radio.com.
+ *
+ * Design values come exclusively from the Style Dictionary output
+ * (tokens.css, --rkn-* custom properties). Do not hardcode colors,
+ * spacing, or font values here — add a token instead.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--rkn-font-family-sans);
+  font-size: var(--rkn-font-size-base);
+  font-weight: var(--rkn-font-weight-regular);
+  line-height: var(--rkn-font-leading-base);
+  color: var(--rkn-color-text-primary);
+  background: var(--rkn-color-background-body);
+}
+
+/* ---------------------------------------------------------------- header */
+
+.site-header {
+  border-bottom: 1px solid var(--rkn-color-border-default);
+  background: var(--rkn-color-background-surface);
+}
+
+.site-header__inner {
+  max-width: var(--rkn-size-content-max);
+  min-height: var(--rkn-size-header-height);
+  margin: 0 auto;
+  padding: 0 var(--rkn-space-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--rkn-space-md);
+  flex-wrap: wrap;
+}
+
+.site-header__title {
+  font-size: var(--rkn-font-size-lg);
+  font-weight: var(--rkn-font-weight-bold);
+  color: var(--rkn-color-text-primary);
+  text-decoration: none;
+}
+
+.site-header__title:hover {
+  color: var(--rkn-color-accent-primary);
+}
+
+.site-nav {
+  display: flex;
+  gap: var(--rkn-space-md);
+}
+
+.site-nav a {
+  color: var(--rkn-color-text-muted);
+  text-decoration: none;
+  font-size: var(--rkn-font-size-sm);
+}
+
+.site-nav a:hover {
+  color: var(--rkn-color-accent-primary);
+}
+
+/* ------------------------------------------------------------------ main */
+
+.site-main {
+  max-width: var(--rkn-size-content-max);
+  margin: 0 auto;
+  padding: var(--rkn-space-lg) var(--rkn-space-md) var(--rkn-space-xl);
+}
+
+.site-main h1,
+.site-main h2,
+.site-main h3 {
+  line-height: var(--rkn-font-leading-tight);
+  font-weight: var(--rkn-font-weight-bold);
+}
+
+.site-main h1 {
+  font-size: var(--rkn-font-size-xxl);
+  margin: 0 0 var(--rkn-space-lg);
+}
+
+.site-main h2 {
+  font-size: var(--rkn-font-size-xl);
+  margin: var(--rkn-space-xl) 0 var(--rkn-space-md);
+  padding-bottom: var(--rkn-space-sm);
+  border-bottom: 1px solid var(--rkn-color-border-default);
+}
+
+.site-main h3 {
+  font-size: var(--rkn-font-size-lg);
+  margin: var(--rkn-space-lg) 0 var(--rkn-space-sm);
+}
+
+.site-main a {
+  color: var(--rkn-color-text-link);
+}
+
+.site-main a:hover {
+  color: var(--rkn-color-accent-primary);
+}
+
+.site-main ul,
+.site-main ol {
+  padding-left: var(--rkn-space-lg);
+}
+
+.site-main blockquote {
+  margin: var(--rkn-space-md) 0;
+  padding: var(--rkn-space-sm) var(--rkn-space-md);
+  border-left: 4px solid var(--rkn-color-accent-secondary);
+  background: var(--rkn-color-background-surface);
+  border-radius: var(--rkn-radius-sm);
+  color: var(--rkn-color-text-muted);
+}
+
+.site-main code {
+  font-family: var(--rkn-font-family-mono);
+  font-size: var(--rkn-font-size-sm);
+  background: var(--rkn-color-background-code);
+  padding: 0.15em 0.4em;
+  border-radius: var(--rkn-radius-sm);
+}
+
+.site-main pre {
+  background: var(--rkn-color-background-code);
+  padding: var(--rkn-space-md);
+  border-radius: var(--rkn-radius-md);
+  overflow-x: auto;
+}
+
+.site-main pre code {
+  background: none;
+  padding: 0;
+}
+
+.site-main img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--rkn-radius-md);
+}
+
+.site-main hr {
+  border: 0;
+  border-top: 1px solid var(--rkn-color-border-default);
+  margin: var(--rkn-space-lg) 0;
+}
+
+.site-main table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.site-main th,
+.site-main td {
+  border: 1px solid var(--rkn-color-border-default);
+  padding: var(--rkn-space-sm) var(--rkn-space-md);
+  text-align: left;
+}
+
+.site-main th {
+  background: var(--rkn-color-background-surface);
+}
+
+/* ---------------------------------------------------------------- footer */
+
+.site-footer {
+  border-top: 1px solid var(--rkn-color-border-default);
+  background: var(--rkn-color-background-surface);
+}
+
+.site-footer__inner {
+  max-width: var(--rkn-size-content-max);
+  margin: 0 auto;
+  padding: var(--rkn-space-md);
+  font-size: var(--rkn-font-size-xs);
+  color: var(--rkn-color-text-muted);
+}
