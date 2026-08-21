@@ -1,0 +1,12 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "engineer-rakuen-radio-com",
+  "compatibility_date": "2026-08-21",
+  // Static-assets-only Worker: no `main` script, everything is served
+  // directly from the build output.
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}
