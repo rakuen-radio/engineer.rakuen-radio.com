@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2024",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "verbatimModuleSyntax": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "@ox-content/vite-plugin",
+    "types": ["vite/client", "node"]
+  },
+  "include": ["vite.config.ts", "playwright.config.ts", "plugins", "og", "tests"]
+}

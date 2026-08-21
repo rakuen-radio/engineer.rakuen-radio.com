@@ -1,0 +1,20 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+.cache/
+
+# generated design tokens (built by `vp run tokens`)
+public/styles/tokens.css
+
+# wrangler
+.wrangler/
+
+# playwright
+playwright-report/
+test-results/
+
+# misc
+*.local
+.DS_Store

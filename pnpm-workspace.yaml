@@ -1,0 +1,18 @@
+allowBuilds:
+  esbuild: true
+  # puppeteer is pulled in via @mermaid-js/mermaid-cli (unused: no mermaid
+  # diagrams on this site); keep its Chrome download disabled.
+  puppeteer: false
+  workerd: true
+minimumReleaseAgeExclude:
+  - '@ox-content/binding-darwin-arm64@2.87.0'
+  - '@ox-content/binding-darwin-x64@2.87.0'
+  - '@ox-content/binding-linux-arm64-gnu@2.87.0'
+  - '@ox-content/binding-linux-arm64-musl@2.87.0'
+  - '@ox-content/binding-linux-x64-gnu@2.87.0'
+  - '@ox-content/binding-linux-x64-musl@2.87.0'
+  - '@ox-content/binding-win32-x64-msvc@2.87.0'
+  - '@ox-content/napi@2.87.0'
+  - '@ox-content/vite-plugin@2.87.0'
+  - miniflare@5.20260820.0-alpha
+  - wrangler@4.125.0
