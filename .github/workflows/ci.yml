@@ -28,9 +28,10 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec playwright install --with-deps chromium
       # Skips until Linux baselines have been seeded with the
-      # "Update VRT snapshots" workflow.
+      # "Update VRT snapshots" workflow (local macOS baselines
+      # use a different platform suffix and don't count).
       - name: Run visual regression tests
-        if: hashFiles('tests/vrt/__screenshots__/**') != ''
+        if: hashFiles('tests/vrt/__screenshots__/*-linux/**') != ''
         run: pnpm exec vp run vrt
       - name: Upload Playwright report
         if: failure()
