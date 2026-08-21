@@ -83,14 +83,14 @@ ${navLinks}
       }
 
       // Cloudflare's `not_found_handling: "404-page"` expects a root-level
-      // 404.html, but the SSG emits clean-URL directories.
-      const notFoundDir = path.join(outDir, "404");
+      // 404.html, but the SSG emits clean-URL directories. Copy instead of
+      // rename: renames escape Vite Task's output tracking, so a cache
+      // replay would restore dist without the file.
       try {
-        await fs.rename(
-          path.join(notFoundDir, "index.html"),
+        await fs.writeFile(
           path.join(outDir, "404.html"),
+          await fs.readFile(path.join(outDir, "404", "index.html")),
         );
-        await fs.rm(notFoundDir, { recursive: true, force: true });
       } catch {
         // No 404 page in this build.
       }
