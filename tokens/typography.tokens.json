@@ -1,0 +1,32 @@
+{
+  "font": {
+    "family": {
+      "$type": "fontFamily",
+      "sans": {
+        "$value": ["Hiragino Sans", "Noto Sans JP", "Yu Gothic UI", "sans-serif"]
+      },
+      "mono": {
+        "$value": ["SFMono-Regular", "Menlo", "Consolas", "monospace"]
+      }
+    },
+    "size": {
+      "$type": "dimension",
+      "xs": { "$value": "0.75rem" },
+      "sm": { "$value": "0.875rem" },
+      "base": { "$value": "1rem" },
+      "lg": { "$value": "1.25rem" },
+      "xl": { "$value": "1.75rem" },
+      "xxl": { "$value": "2.5rem" }
+    },
+    "weight": {
+      "$type": "fontWeight",
+      "regular": { "$value": 400 },
+      "bold": { "$value": 700 }
+    },
+    "leading": {
+      "$type": "number",
+      "tight": { "$value": 1.3 },
+      "base": { "$value": 1.8 }
+    }
+  }
+}

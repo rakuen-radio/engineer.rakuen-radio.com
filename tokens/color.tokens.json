@@ -1,0 +1,31 @@
+{
+  "color": {
+    "$type": "color",
+    "base": {
+      "sunset": { "$value": "#ff6b4a" },
+      "lagoon": { "$value": "#0e7490" },
+      "sand": { "$value": "#faf6ef" },
+      "night": { "$value": "#1c1917" },
+      "stone": { "$value": "#57534e" },
+      "white": { "$value": "#ffffff" }
+    },
+    "text": {
+      "primary": { "$value": "{color.base.night}" },
+      "muted": { "$value": "{color.base.stone}" },
+      "inverse": { "$value": "{color.base.sand}" },
+      "link": { "$value": "{color.base.lagoon}" }
+    },
+    "background": {
+      "body": { "$value": "{color.base.sand}" },
+      "surface": { "$value": "{color.base.white}" },
+      "code": { "$value": "#f5f0e8" }
+    },
+    "accent": {
+      "primary": { "$value": "{color.base.sunset}" },
+      "secondary": { "$value": "{color.base.lagoon}" }
+    },
+    "border": {
+      "default": { "$value": "#e7e0d6" }
+    }
+  }
+}

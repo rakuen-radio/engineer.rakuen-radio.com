@@ -1,0 +1,21 @@
+{
+  "space": {
+    "$type": "dimension",
+    "xs": { "$value": "0.25rem" },
+    "sm": { "$value": "0.5rem" },
+    "md": { "$value": "1rem" },
+    "lg": { "$value": "2rem" },
+    "xl": { "$value": "4rem" }
+  },
+  "radius": {
+    "$type": "dimension",
+    "sm": { "$value": "4px" },
+    "md": { "$value": "8px" },
+    "lg": { "$value": "16px" }
+  },
+  "size": {
+    "$type": "dimension",
+    "content-max": { "$value": "42rem" },
+    "header-height": { "$value": "3.5rem" }
+  }
+}
