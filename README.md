@@ -4,14 +4,16 @@
 [Ox Content](https://ox-content.void.app/) **Bare Mode** で Markdown から Zero JavaScript の静的サイトを生成します。
 
 - Node.js 26 / pnpm / [Vite+](https://viteplus.dev/)(`vp`)/ TypeScript 7
+- コマンドは `vp` に統一(インストールもタスク実行も `vp`。CI は [`setup-vp`](https://github.com/voidzero-dev/setup-vp))
 - タスクは Vite Task(`vite.config.ts` の `run.tasks`)のみ。npm scripts は使いません
+- 依存のバージョンは pnpm catalog(`pnpm-workspace.yaml` の `catalog`)で一元管理
 - デザイントークンは Style Dictionary(`tokens/*.tokens.json` → `--rkn-*` CSS 変数)
 - VRT は Playwright、ホスティングは Cloudflare Workers(Static Assets)
 
 ## 開発
 
 ```bash
-pnpm install
+vp install
 ```
 
 ```bash

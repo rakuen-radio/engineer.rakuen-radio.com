@@ -16,14 +16,13 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v5
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v5
+      - uses: voidzero-dev/setup-vp@v1.17.0
         with:
           node-version-file: .node-version
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
+          cache: true
+      - run: vp install --frozen-lockfile
       # The deploy task builds first (tokens -> build -> wrangler deploy).
-      - run: pnpm exec vp run deploy
+      - run: vp run deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

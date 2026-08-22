@@ -8,31 +8,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v5
+      - uses: voidzero-dev/setup-vp@v1.17.0
         with:
           node-version-file: .node-version
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm exec vp run build
+          cache: true
+      - run: vp install --frozen-lockfile
+      - run: vp run build
 
   vrt:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v5
+      - uses: voidzero-dev/setup-vp@v1.17.0
         with:
           node-version-file: .node-version
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm exec playwright install --with-deps chromium
+          cache: true
+      - run: vp install --frozen-lockfile
+      - run: vp exec playwright install --with-deps chromium
       # Skips until Linux baselines have been seeded with the
       # "Update VRT snapshots" workflow (local macOS baselines
       # use a different platform suffix and don't count).
       - name: Run visual regression tests
         if: hashFiles('tests/vrt/__screenshots__/*-linux/**') != ''
-        run: pnpm exec vp run vrt
+        run: vp run vrt
       - name: Upload Playwright report
         if: failure()
         uses: actions/upload-artifact@v4

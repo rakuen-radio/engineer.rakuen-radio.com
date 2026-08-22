@@ -12,14 +12,13 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v5
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v5
+      - uses: voidzero-dev/setup-vp@v1.17.0
         with:
           node-version-file: .node-version
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm exec playwright install --with-deps chromium
-      - run: pnpm exec vp run vrt-update
+          cache: true
+      - run: vp install --frozen-lockfile
+      - run: vp exec playwright install --with-deps chromium
+      - run: vp run vrt-update
       - name: Commit updated snapshots
         run: |
           git config user.name "github-actions[bot]"

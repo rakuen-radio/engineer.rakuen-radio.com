@@ -4,7 +4,7 @@ import { defineConfig, devices } from "@playwright/test";
  * Visual regression testing over the built static site.
  *
  * `vp run vrt` builds first (task dependency), then Playwright serves
- * `dist/` via `vite preview` and compares full-page screenshots against
+ * `dist/` via `vp preview` and compares full-page screenshots against
  * the committed baselines in `tests/vrt/__screenshots__/`.
  * Baselines are platform-suffixed; CI (Linux) baselines are the source
  * of truth and are regenerated with `vp run vrt-update`.
@@ -39,7 +39,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: "pnpm exec vite preview --port 4173 --strictPort",
+    command: "vp preview --port 4173 --strictPort",
     url: "http://localhost:4173",
     reuseExistingServer: !process.env.CI,
   },

@@ -54,7 +54,8 @@ export default defineConfig({
   run: {
     tasks: {
       tokens: {
-        command: "style-dictionary build --config style-dictionary.config.js",
+        command:
+          "vp exec style-dictionary build --config style-dictionary.config.js",
       },
       dev: {
         command: "vp dev",
@@ -66,22 +67,22 @@ export default defineConfig({
         dependsOn: ["tokens"],
       },
       preview: {
-        command: "vite preview --port 4173 --strictPort",
+        command: "vp preview --port 4173 --strictPort",
         cache: false,
         dependsOn: ["build"],
       },
       vrt: {
-        command: "playwright test",
+        command: "vp exec playwright test",
         cache: false,
         dependsOn: ["build"],
       },
       "vrt-update": {
-        command: "playwright test --update-snapshots",
+        command: "vp exec playwright test --update-snapshots",
         cache: false,
         dependsOn: ["build"],
       },
       deploy: {
-        command: "wrangler deploy",
+        command: "vp exec wrangler deploy",
         cache: false,
         dependsOn: ["build"],
       },
