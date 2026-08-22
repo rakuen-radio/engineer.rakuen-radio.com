@@ -1,9 +1,19 @@
+import { readFileSync } from "node:fs";
 import browserslist from "browserslist";
 import { browserslistToTargets } from "lightningcss";
 import { defineConfig } from "vite-plus";
 import { oxContent } from "@ox-content/vite-plugin";
 import { bareShell } from "./plugins/bare-shell";
+import { parse } from "yaml";
 import pkg from "./package.json" with { type: "json" };
+
+// The site is one page, so that page's frontmatter is where its name and
+// description live; nothing is repeated here.
+const home = readFileSync("content/index.md", "utf-8");
+const site = parse(home.match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1] ?? "") as {
+  title: string;
+  description?: string;
+};
 
 export default defineConfig({
   plugins: [
@@ -11,24 +21,24 @@ export default defineConfig({
       srcDir: "content",
       outDir: "dist",
       highlight: true,
-      // NOTE: OG image generation is wired up (framework-less JSX template),
-      // but ox-content skips it while `ssg.bare` is set:
-      // https://github.com/ubugeeei-prod/ox-content/issues/602
       ogImage: true,
       ogImageOptions: {
-        template: "./og/template.tsx",
+        template: "./og/template.ts",
       },
       docs: { enabled: false },
+      // One page, no search UI: the index would just be dead weight.
+      search: false,
       ssg: {
         bare: true,
         // Vite already empties `dist` at build start; ox-content's `clean`
         // would also wipe the emitted stylesheet, so keep it off.
         clean: false,
+        siteName: site.title,
         siteUrl: pkg.homepage,
         generateOgImage: true,
       },
     }),
-    bareShell(),
+    bareShell({ siteUrl: pkg.homepage, description: site.description }),
   ],
   css: {
     transformer: "lightningcss",

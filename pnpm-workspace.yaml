@@ -9,6 +9,7 @@ catalog:
   vite: ^8.2.2
   vite-plus: ^0.2.9
   wrangler: ^4.125.0
+  yaml: ^2.9.0
 allowBuilds:
   esbuild: true
   # puppeteer is pulled in via @mermaid-js/mermaid-cli (unused: no mermaid

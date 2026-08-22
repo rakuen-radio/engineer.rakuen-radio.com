@@ -13,6 +13,8 @@ jobs:
           node-version-file: .node-version
           cache: true
       - run: vp install --frozen-lockfile
+      # The OG images are rendered with Playwright's Chromium at build time.
+      - run: vp exec playwright install --with-deps chromium
       - run: vpr build
 
   vrt:

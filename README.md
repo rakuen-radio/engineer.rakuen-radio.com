@@ -20,12 +20,13 @@ vpr dev
 | `vpr vrt` / `vpr vrt-update` | VRT 実行 / ベースライン更新 |
 | `vpr deploy` | Cloudflare Workers へデプロイ(`main` への push で自動実行) |
 
-- 本文は `content/index.md` だけ。`##` 見出しがそのままヘッダーのナビになる
+- 本文は `content/index.md` だけ。`##` 見出しがそのままヘッダーのナビになる。サイト名と説明もこのファイルの frontmatter が唯一の出所
 - 色・余白・フォントは `tokens/` が唯一の出所。`styles/site.css` は CSS Nesting で書き、Lightning CSS がコンパイルする
 - VRT のベースラインは CI(Linux)が正。**Update VRT snapshots** ワークフローの手動実行で更新する
+- OG 画像は [`og/card.tsx`](og/card.tsx) をビルド時にレンダリングして生成する(Playwright の Chromium が必要)
 - デプロイに必要な Secrets: `CLOUDFLARE_API_TOKEN`(Workers Scripts:Edit)/ `CLOUDFLARE_ACCOUNT_ID`
 
-## 既知の制約(upstream)
+## upstream に投げているもの
 
-- `ssg.bare` 有効時は OG 画像が生成されない([ox-content#602](https://github.com/ubugeeei-prod/ox-content/issues/602))。設定と [`og/template.tsx`](og/template.tsx) は用意済み
-- `@ox-content/vite-plugin` が `./jsx-runtime` を export していないため型シムが要る([ox-content#601](https://github.com/ubugeeei-prod/ox-content/issues/601))
+- [ox-content#609](https://github.com/ubugeeei-prod/ox-content/issues/609) bare mode が `lang`・メタデータ・OG タグを一切出さないので、[`plugins/bare-shell.ts`](plugins/bare-shell.ts) で後処理している。ここが埋まればプラグインはほぼ不要になる
+- [ox-content#608](https://github.com/ubugeeei-prod/ox-content/issues/608) `.ts` の OG テンプレートから `@ox-content/vite-plugin` を import できない(プラグイン丸ごとバンドルされて壊れる)ため、`renderToString()` / `raw()` を使わず `JSXNode` を直接組み立てている

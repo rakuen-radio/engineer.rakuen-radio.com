@@ -1,29 +1,30 @@
 /**
- * Framework-less JSX template for per-page OG images (1200x630).
+ * OG image card (1200x630).
  *
- * Rendered at build time only — it never ships to the browser. Uses the
- * Ox Content JSX runtime (see tsconfig `jsxImportSource`), not React.
+ * Rendered at build time only — it never ships to the browser. Written for
+ * the Ox Content JSX runtime (tsconfig `jsxImportSource`), not React;
+ * [`template.ts`](./template.ts) renders it to the HTML string ox-content
+ * expects.
  *
  * Colors and typefaces are read from the generated design tokens, so only
  * the measurements of the OG canvas itself live here.
- *
- * Dormant for now: ox-content skips OG generation while `ssg.bare` is set
- * (https://github.com/ubugeeei-prod/ox-content/issues/602).
  */
 import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+import type { JSXNode, OgImageTemplateProps } from "@ox-content/vite-plugin";
 
-const tokens = readFileSync(
-  new URL("../styles/tokens.css", import.meta.url),
-  "utf-8",
-);
+// ox-content bundles this template into `.cache/og-images/` before running
+// it, so the tokens are read from the project root, not from next to it.
+const tokens = readFileSync(resolve("styles/tokens.css"), "utf-8");
 
-interface OgProps {
-  title: string;
-  description?: string;
-  siteName?: string;
-}
+// The runtime escapes text children, which would mangle the CSS. That is
+// what the plugin's `raw()` is for, but a value import from
+// @ox-content/vite-plugin pulls the whole plugin into the template bundle
+// (https://github.com/ubugeeei-prod/ox-content/issues/608), so the
+// node is built by hand from the public `JSXNode` shape.
+const raw = (html: string): JSXNode => ({ __html: html });
 
-export default function OgTemplate(props: OgProps) {
+export function OgCard(props: OgImageTemplateProps) {
   const { title, description, siteName } = props;
 
   return (
@@ -31,9 +32,13 @@ export default function OgTemplate(props: OgProps) {
       <div class="og">
         <h1 class="title">{title}</h1>
         {description && <p class="description">{description}</p>}
-        {siteName && <span class="site-name">{siteName}</span>}
+        {/* On the home page the title already is the site name. */}
+        {siteName && siteName !== title && (
+          <span class="site-name">{siteName}</span>
+        )}
       </div>
-      <style>{`
+      <style>
+        {raw(`
         ${tokens}
         .og {
           width: 100%;
@@ -65,7 +70,8 @@ export default function OgTemplate(props: OgProps) {
           font-weight: var(--rkn-font-weight-bold);
           color: var(--rkn-color-accent-secondary);
         }
-      `}</style>
+      `)}
+      </style>
     </>
   );
 }
