@@ -7,13 +7,13 @@
     "node": ">=26"
   },
   "devDependencies": {
-    "@ox-content/vite-plugin": "^2.87.0",
-    "@playwright/test": "^1.55.0",
-    "@types/node": "^26.2.0",
-    "style-dictionary": "^5.5.2",
-    "typescript": "^7.0.2",
-    "vite": "^8.2.2",
-    "vite-plus": "^0.2.9",
-    "wrangler": "^4.125.0"
+    "@ox-content/vite-plugin": "catalog:",
+    "@playwright/test": "catalog:",
+    "@types/node": "catalog:",
+    "style-dictionary": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vite-plus": "catalog:",
+    "wrangler": "catalog:"
   }
 }
