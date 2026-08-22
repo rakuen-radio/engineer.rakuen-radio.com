@@ -22,7 +22,7 @@ jobs:
           cache: true
       - run: vp install --frozen-lockfile
       # The deploy task builds first (tokens -> build -> wrangler deploy).
-      - run: vp run deploy
+      - run: vpr deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

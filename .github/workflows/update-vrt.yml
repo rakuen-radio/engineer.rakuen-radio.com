@@ -18,15 +18,5 @@ jobs:
           cache: true
       - run: vp install --frozen-lockfile
       - run: vp exec playwright install --with-deps chromium
-      - run: vp run vrt-update
-      - name: Commit updated snapshots
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add tests/vrt/__screenshots__
-          if git diff --cached --quiet; then
-            echo "No snapshot changes."
-          else
-            git commit -m "test: update VRT snapshots"
-            git push
-          fi
+      - run: vpr vrt-update
+      - run: vpr vrt-commit

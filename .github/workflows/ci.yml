@@ -13,7 +13,7 @@ jobs:
           node-version-file: .node-version
           cache: true
       - run: vp install --frozen-lockfile
-      - run: vp run build
+      - run: vpr build
 
   vrt:
     runs-on: ubuntu-latest
@@ -30,7 +30,7 @@ jobs:
       # use a different platform suffix and don't count).
       - name: Run visual regression tests
         if: hashFiles('tests/vrt/__screenshots__/*-linux/**') != ''
-        run: vp run vrt
+        run: vpr vrt
       - name: Upload Playwright report
         if: failure()
         uses: actions/upload-artifact@v4
