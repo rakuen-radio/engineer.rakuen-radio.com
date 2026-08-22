@@ -2,6 +2,8 @@ catalog:
   '@ox-content/vite-plugin': ^2.87.0
   '@playwright/test': ^1.55.0
   '@types/node': ^26.2.0
+  browserslist: ^4.28.8
+  lightningcss: ^1.33.0
   style-dictionary: ^5.5.2
   typescript: ^7.0.2
   vite: ^8.2.2
@@ -14,14 +16,6 @@ allowBuilds:
   puppeteer: false
   workerd: true
 minimumReleaseAgeExclude:
-  - '@ox-content/binding-darwin-arm64@2.87.0'
-  - '@ox-content/binding-darwin-x64@2.87.0'
-  - '@ox-content/binding-linux-arm64-gnu@2.87.0'
-  - '@ox-content/binding-linux-arm64-musl@2.87.0'
-  - '@ox-content/binding-linux-x64-gnu@2.87.0'
-  - '@ox-content/binding-linux-x64-musl@2.87.0'
-  - '@ox-content/binding-win32-x64-msvc@2.87.0'
-  - '@ox-content/napi@2.87.0'
-  - '@ox-content/vite-plugin@2.87.0'
-  - miniflare@5.20260820.0-alpha
-  - wrangler@4.125.0
+  # Every @ox-content release is younger than the policy cutoff at the
+  # moment it is picked up; the rest of the tree is not.
+  - '@ox-content/*'
