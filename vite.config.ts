@@ -1,9 +1,9 @@
-import { defineConfig, type PluginOption } from "vite-plus";
+import browserslist from "browserslist";
+import { browserslistToTargets } from "lightningcss";
+import { defineConfig } from "vite-plus";
 import { oxContent } from "@ox-content/vite-plugin";
 import { bareShell } from "./plugins/bare-shell";
-
-const SITE_NAME = "エンジニアの楽園ラジオ";
-const SITE_URL = "https://engineer.rakuen-radio.com";
+import pkg from "./package.json" with { type: "json" };
 
 export default defineConfig({
   plugins: [
@@ -12,7 +12,8 @@ export default defineConfig({
       outDir: "dist",
       highlight: true,
       // NOTE: OG image generation is wired up (framework-less JSX template),
-      // but upstream ox-content currently skips it when `ssg.bare` is set.
+      // but ox-content skips it while `ssg.bare` is set:
+      // https://github.com/ubugeeei-prod/ox-content/issues/602
       ogImage: true,
       ogImageOptions: {
         template: "./og/template.tsx",
@@ -21,34 +22,27 @@ export default defineConfig({
       ssg: {
         bare: true,
         // Vite already empties `dist` at build start; ox-content's `clean`
-        // would also wipe the copied `public/` assets, so keep it off.
+        // would also wipe the emitted stylesheet, so keep it off.
         clean: false,
-        siteName: SITE_NAME,
-        siteUrl: SITE_URL,
+        siteUrl: pkg.homepage,
         generateOgImage: true,
       },
-      // Cast: comparing the plugin's vite types against vite-plus's
-      // PluginOption overflows tsc's recursion limit (upstream friction).
-    }) as unknown as PluginOption,
-    bareShell({
-      siteName: SITE_NAME,
-      nav: [
-        { href: "/episodes/", label: "エピソード" },
-        { href: "/about/", label: "この番組について" },
-      ],
-      footer: `© 2026 ${SITE_NAME}`,
-      stylesheets: ["/styles/tokens.css", "/styles/site.css"],
     }),
+    bareShell(),
   ],
+  css: {
+    transformer: "lightningcss",
+    lightningcss: {
+      // `browserslist()` reads the `browserslist` field in package.json.
+      targets: browserslistToTargets(browserslist()),
+    },
+  },
   build: {
     outDir: "dist",
+    cssMinify: "lightningcss",
     rollupOptions: {
-      // Bare mode has no client JavaScript; Vite still needs an entry, so we
-      // feed it a placeholder that the bare-shell plugin deletes afterwards.
-      input: "empty-entry.js",
-      output: {
-        entryFileNames: "_empty.js",
-      },
+      // The site ships zero JavaScript, so the stylesheet is the only entry.
+      input: "styles/site.css",
     },
   },
   run: {
@@ -77,9 +71,13 @@ export default defineConfig({
         dependsOn: ["build"],
       },
       "vrt-update": {
-        command: "vp exec playwright test --update-snapshots",
+        command: "vp exec playwright test --update-snapshots=all",
         cache: false,
         dependsOn: ["build"],
+      },
+      "vrt-commit": {
+        command: "vp exec node scripts/commit-vrt-snapshots.ts",
+        cache: false,
       },
       deploy: {
         command: "vp exec wrangler deploy",

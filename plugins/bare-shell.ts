@@ -3,12 +3,19 @@ import * as path from "node:path";
 import type { Plugin, ResolvedConfig } from "vite-plus";
 
 interface BareShellOptions {
-  siteName: string;
-  nav: { href: string; label: string }[];
-  footer: string;
-  stylesheets: string[];
+  /** Value for the `lang` attribute on the generated documents. */
   lang?: string;
 }
+
+interface NavItem {
+  href: string;
+  label: string;
+}
+
+const TITLE = /<title>([^<]*)<\/title>/;
+const HEADINGS = /<h2 id="([^"]+)"[^>]*>([\s\S]*?)<\/h2>/g;
+
+const stripTags = (html: string) => html.replace(/<[^>]+>/g, "").trim();
 
 /**
  * Post-processes the HTML emitted by Ox Content's bare mode SSG.
@@ -16,35 +23,19 @@ interface BareShellOptions {
  * Bare mode intentionally outputs an unstyled document with no site chrome,
  * so this plugin owns everything around the content:
  *  - sets the document language
- *  - links the design-token and site stylesheets into <head>
+ *  - links the stylesheet Vite emitted (Lightning CSS output, hashed)
  *  - wraps the body content with the site header / main / footer
- *  - removes the placeholder JS entry chunk so the deployed site ships
- *    zero JavaScript
+ *  - removes the JavaScript Rollup emits for the CSS entry so the deployed
+ *    site ships zero JavaScript
+ *
+ * The site is a single page, so its chrome is derived from that page rather
+ * than configured here: the header title comes from the home page `<title>`
+ * and the nav is built from its `<h2>` section headings.
  */
-export function bareShell(options: BareShellOptions): Plugin {
-  const { siteName, nav, footer, stylesheets, lang = "ja" } = options;
+export function bareShell(options: BareShellOptions = {}): Plugin {
+  const { lang = "ja" } = options;
   let config: ResolvedConfig;
-
-  const headLinks = stylesheets
-    .map((href) => `  <link rel="stylesheet" href="${href}">`)
-    .join("\n");
-
-  const navLinks = nav
-    .map(({ href, label }) => `      <a href="${href}">${label}</a>`)
-    .join("\n");
-
-  const header = `<header class="site-header">
-  <div class="site-header__inner">
-    <a class="site-header__title" href="/">${siteName}</a>
-    <nav class="site-nav">
-${navLinks}
-    </nav>
-  </div>
-</header>`;
-
-  const footerHtml = `<footer class="site-footer">
-  <div class="site-footer__inner">${footer}</div>
-</footer>`;
+  let stylesheets: string[] = [];
 
   async function collectHtmlFiles(dir: string): Promise<string[]> {
     const entries = await fs.readdir(dir, { withFileTypes: true });
@@ -58,12 +49,57 @@ ${navLinks}
     return files.flat();
   }
 
-  function transform(html: string): string {
+  async function removeJavaScript(dir: string): Promise<void> {
+    for (const entry of await fs.readdir(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        await removeJavaScript(full);
+        // The entry chunk may have been the only thing in its directory.
+        await fs.rmdir(full).catch(() => {});
+      } else if (entry.name.endsWith(".js")) {
+        await fs.rm(full);
+      }
+    }
+  }
+
+  function readNav(homeHtml: string): NavItem[] {
+    return [...homeHtml.matchAll(HEADINGS)].map(([, id, label]) => ({
+      href: `${config.base}#${id}`,
+      label: stripTags(label),
+    }));
+  }
+
+  function transform(html: string, siteName: string, nav: NavItem[]): string {
+    const head = stylesheets
+      .map((href) => `  <link rel="stylesheet" href="${href}">`)
+      .join("\n");
+
+    const navLinks = nav
+      .map(({ href, label }) => `      <a href="${href}">${label}</a>`)
+      .join("\n");
+
+    const header = `<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-header__title" href="${config.base}">${siteName}</a>${
+      nav.length === 0
+        ? ""
+        : `
+    <nav class="site-nav">
+${navLinks}
+    </nav>`
+    }
+  </div>
+</header>`;
+
+    const footer = `<footer class="site-footer">
+  <div class="site-footer__inner">© ${new Date().getFullYear()} ${siteName}</div>
+</footer>`;
+
     return html
       .replace('<html lang="en">', `<html lang="${lang}">`)
-      .replace("</head>", `${headLinks}\n</head>`)
+      .replace("</head>", `${head}\n</head>`)
       .replace("<body>", `<body>\n${header}\n<main class="site-main">`)
-      .replace("</body>", `</main>\n${footerHtml}\n</body>`);
+      .replace("</body>", `</main>\n${footer}\n</body>`);
   }
 
   return {
@@ -74,35 +110,32 @@ ${navLinks}
     configResolved(resolved) {
       config = resolved;
     },
+    generateBundle(_options, bundle) {
+      stylesheets = Object.keys(bundle)
+        .filter((fileName) => fileName.endsWith(".css"))
+        .map((fileName) => `${config.base}${fileName}`);
+    },
     async closeBundle() {
       const outDir = path.resolve(config.root, config.build.outDir);
+      const home = await fs.readFile(path.join(outDir, "index.html"), "utf-8");
+      const siteName = TITLE.exec(home)?.[1] ?? "";
+      const nav = readNav(home);
 
       for (const file of await collectHtmlFiles(outDir)) {
         const html = await fs.readFile(file, "utf-8");
-        await fs.writeFile(file, transform(html));
+        await fs.writeFile(file, transform(html, siteName, nav));
       }
 
       // Cloudflare's `not_found_handling: "404-page"` expects a root-level
       // 404.html, but the SSG emits clean-URL directories. Copy instead of
       // rename: renames escape Vite Task's output tracking, so a cache
       // replay would restore dist without the file.
-      try {
-        await fs.writeFile(
-          path.join(outDir, "404.html"),
-          await fs.readFile(path.join(outDir, "404", "index.html")),
-        );
-      } catch {
-        // No 404 page in this build.
-      }
+      await fs.writeFile(
+        path.join(outDir, "404.html"),
+        await fs.readFile(path.join(outDir, "404", "index.html")),
+      );
 
-      // Drop the placeholder entry chunk and its assets dir: the site is
-      // fully static and must not ship any JavaScript.
-      await fs.rm(path.join(outDir, "assets"), { recursive: true, force: true });
-      for (const entry of await fs.readdir(outDir)) {
-        if (entry.endsWith(".js")) {
-          await fs.rm(path.join(outDir, entry), { force: true });
-        }
-      }
+      await removeJavaScript(outDir);
     },
   };
 }

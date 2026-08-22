@@ -9,7 +9,21 @@
     "verbatimModuleSyntax": true,
     "jsx": "react-jsx",
     "jsxImportSource": "@ox-content/vite-plugin",
-    "types": ["vite/client", "node"]
+    "types": ["vite/client", "node"],
+    // Vite+ bundles its own copy of Vite's types, so a plugin typed against
+    // the `vite` package (@ox-content/vite-plugin) is structurally identical
+    // but nominally different, and comparing the two exceeds tsc's recursion
+    // limit. Resolving `vite` to Vite+ keeps one set of declarations.
+    "paths": {
+      "vite": ["./node_modules/vite-plus"]
+    }
   },
-  "include": ["vite.config.ts", "playwright.config.ts", "plugins", "og", "tests"]
+  "include": [
+    "vite.config.ts",
+    "playwright.config.ts",
+    "plugins",
+    "og",
+    "scripts",
+    "tests"
+  ]
 }

@@ -6,7 +6,7 @@ dist/
 .cache/
 
 # generated design tokens (built by `vp run tokens`)
-public/styles/tokens.css
+styles/tokens.css
 
 # wrangler
 .wrangler/
