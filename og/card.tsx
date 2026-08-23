@@ -11,18 +11,11 @@
  */
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import type { JSXNode, OgImageTemplateProps } from "@ox-content/vite-plugin";
+import { raw, type OgImageTemplateProps } from "@ox-content/vite-plugin";
 
 // ox-content bundles this template into `.cache/og-images/` before running
 // it, so the tokens are read from the project root, not from next to it.
 const tokens = readFileSync(resolve("styles/tokens.css"), "utf-8");
-
-// The runtime escapes text children, which would mangle the CSS. That is
-// what the plugin's `raw()` is for, but a value import from
-// @ox-content/vite-plugin pulls the whole plugin into the template bundle
-// (https://github.com/ubugeeei-prod/ox-content/issues/608), so the
-// node is built by hand from the public `JSXNode` shape.
-const raw = (html: string): JSXNode => ({ __html: html });
 
 export function OgCard(props: OgImageTemplateProps) {
   const { title, description, siteName } = props;
@@ -37,6 +30,7 @@ export function OgCard(props: OgImageTemplateProps) {
           <span class="site-name">{siteName}</span>
         )}
       </div>
+      {/* `raw`: the runtime escapes text children, which would mangle the CSS. */}
       <style>
         {raw(`
         ${tokens}

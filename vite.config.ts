@@ -2,18 +2,18 @@ import { readFileSync } from "node:fs";
 import browserslist from "browserslist";
 import { browserslistToTargets } from "lightningcss";
 import { defineConfig } from "vite-plus";
-import { oxContent } from "@ox-content/vite-plugin";
-import { bareShell } from "./plugins/bare-shell";
+import { createTheme, oxContent } from "@ox-content/vite-plugin";
+import { siteLayout } from "./theme/layout";
+import { staticOutput, stylesheetHref } from "./plugins/static-output";
 import { parse } from "yaml";
 import pkg from "./package.json" with { type: "json" };
 
-// The site is one page, so that page's frontmatter is where its name and
-// description live; nothing is repeated here.
+// The site is one page, so that page's frontmatter is where the site name
+// lives; nothing is repeated here.
 const home = readFileSync("content/index.md", "utf-8");
-const site = parse(home.match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1] ?? "") as {
-  title: string;
-  description?: string;
-};
+const { title } = parse(
+  home.match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1] ?? "",
+) as { title: string };
 
 export default defineConfig({
   plugins: [
@@ -29,16 +29,23 @@ export default defineConfig({
       // One page, no search UI: the index would just be dead weight.
       search: false,
       ssg: {
-        bare: true,
+        render: createTheme({
+          layouts: {
+            default: siteLayout({
+              siteUrl: pkg.homepage,
+              stylesheet: stylesheetHref,
+            }),
+          },
+        }),
         // Vite already empties `dist` at build start; ox-content's `clean`
         // would also wipe the emitted stylesheet, so keep it off.
         clean: false,
-        siteName: site.title,
+        siteName: title,
         siteUrl: pkg.homepage,
         generateOgImage: true,
       },
     }),
-    bareShell({ siteUrl: pkg.homepage, description: site.description }),
+    staticOutput(),
   ],
   css: {
     transformer: "lightningcss",
