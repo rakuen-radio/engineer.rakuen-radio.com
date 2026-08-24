@@ -39,12 +39,15 @@ export default defineConfig({
             sidebarWidth: "0px",
           },
           // The theme renders its search UI even with `search: false` (no
-          // index is built, so the buttons would open a dead modal), and the
-          // mobile menu button opens the empty navigation drawer.
+          // index is built, so the buttons would open a dead modal), the
+          // mobile menu button opens the empty navigation drawer, and the
+          // header falls back to /logo.svg even when no logo is configured —
+          // this site has no logo yet, so hide the slot.
           css: `
             .search-button,
             .mobile-footer-btn[data-mobile-search],
-            .mobile-footer-btn[data-mobile-menu] {
+            .mobile-footer-btn[data-mobile-menu],
+            .header-logo {
               display: none;
             }
           `,
