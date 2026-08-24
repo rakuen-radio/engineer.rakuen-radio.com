@@ -1,6 +1,6 @@
 # engineer.rakuen-radio.com
 
-「エンジニアの楽園ラジオ」のウェブサイト。[Ox Content](https://ox-content.void.app/) で `content/index.md` から完全静的な1ページを生成し、Cloudflare Workers(Static Assets)へ配信します。JS ファイルは配信しません(テーマ由来のインラインスクリプトのみ)。
+「エンジニアの楽園ラジオ」のウェブサイト。[Ox Content](https://ox-content.void.app/) で `content/index.md` から完全静的な1ページを生成し、Cloudflare Workers(Static Assets)へ配信します。自前の JavaScript はゼロで、配信されるのはテーマ由来のアセットだけです。
 
 ## 開発
 

@@ -1,6 +1,6 @@
 import { defineConfig } from "vite-plus";
 import { defaultTheme, defineTheme, oxContent } from "@ox-content/vite-plugin";
-import { staticOutput } from "./plugins/static-output";
+import { notFoundPage } from "./plugins/not-found-page";
 import pkg from "./package.json" with { type: "json" };
 
 const SITE_NAME = "エンジニアの楽園ラジオ";
@@ -51,19 +51,8 @@ export default defineConfig({
         }),
       },
     }),
-    staticOutput(),
+    notFoundPage(),
   ],
-  build: {
-    outDir: "dist",
-    rollupOptions: {
-      // The theme carries its own assets; Vite still needs an entry, so we
-      // feed it a placeholder that staticOutput deletes afterwards.
-      input: "empty-entry.js",
-      output: {
-        entryFileNames: "_empty.js",
-      },
-    },
-  },
   run: {
     tasks: {
       dev: {
