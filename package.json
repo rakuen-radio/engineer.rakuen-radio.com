@@ -7,20 +7,13 @@
     "node": ">=26"
   },
   "homepage": "https://engineer.rakuen-radio.com",
-  "browserslist": [
-    "defaults"
-  ],
   "devDependencies": {
-    "@ox-content/vite-plugin": "^2.89.0",
+    "@ox-content/vite-plugin": "catalog:",
     "@playwright/test": "catalog:",
     "@types/node": "catalog:",
-    "browserslist": "catalog:",
-    "lightningcss": "catalog:",
-    "style-dictionary": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
     "vite-plus": "catalog:",
-    "wrangler": "catalog:",
-    "yaml": "catalog:"
+    "wrangler": "catalog:"
   }
 }

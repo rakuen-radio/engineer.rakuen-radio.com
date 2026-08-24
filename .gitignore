@@ -5,9 +5,6 @@ node_modules/
 dist/
 .cache/
 
-# generated design tokens (built by `vp run tokens`)
-styles/tokens.css
-
 # wrangler
 .wrangler/
 

@@ -1,19 +1,9 @@
-import { readFileSync } from "node:fs";
-import browserslist from "browserslist";
-import { browserslistToTargets } from "lightningcss";
 import { defineConfig } from "vite-plus";
-import { createTheme, oxContent } from "@ox-content/vite-plugin";
-import { siteLayout } from "./theme/layout";
-import { staticOutput, stylesheetHref } from "./plugins/static-output";
-import { parse } from "yaml";
+import { defaultTheme, defineTheme, oxContent } from "@ox-content/vite-plugin";
+import { staticOutput } from "./plugins/static-output";
 import pkg from "./package.json" with { type: "json" };
 
-// The site is one page, so that page's frontmatter is where the site name
-// lives; nothing is repeated here.
-const home = readFileSync("content/index.md", "utf-8");
-const { title } = parse(
-  home.match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1] ?? "",
-) as { title: string };
+const SITE_NAME = "エンジニアの楽園ラジオ";
 
 export default defineConfig({
   plugins: [
@@ -28,54 +18,60 @@ export default defineConfig({
       docs: { enabled: false },
       // One page, no search UI: the index would just be dead weight.
       search: false,
+      // Single locale; this is what gives the themed pages `<html lang="ja">`.
+      i18n: { enabled: true, defaultLocale: "ja" },
       ssg: {
-        render: createTheme({
-          layouts: {
-            default: siteLayout({
-              siteUrl: pkg.homepage,
-              stylesheet: stylesheetHref,
-            }),
-          },
-        }),
-        // Vite already empties `dist` at build start; ox-content's `clean`
-        // would also wipe the emitted stylesheet, so keep it off.
-        clean: false,
-        siteName: title,
+        siteName: SITE_NAME,
         siteUrl: pkg.homepage,
         generateOgImage: true,
+        // Explicit empty navigation instead of the derived file tree, which
+        // would list the 404 page in the sidebar.
+        navigation: [],
+        // The stock theme, on purpose: this repo is a foundation, so the
+        // design should not make statements the real site will have to undo.
+        theme: defineTheme({
+          extends: defaultTheme,
+          footer: {
+            copyright: `© 2026 ${SITE_NAME}`,
+          },
+          // No sidebar (navigation is empty), so don't reserve its column.
+          layout: {
+            sidebarWidth: "0px",
+          },
+          // The theme renders its search UI even with `search: false` (no
+          // index is built, so the buttons would open a dead modal), and the
+          // mobile menu button opens the empty navigation drawer.
+          css: `
+            .search-button,
+            .mobile-footer-btn[data-mobile-search],
+            .mobile-footer-btn[data-mobile-menu] {
+              display: none;
+            }
+          `,
+        }),
       },
     }),
     staticOutput(),
   ],
-  css: {
-    transformer: "lightningcss",
-    lightningcss: {
-      // `browserslist()` reads the `browserslist` field in package.json.
-      targets: browserslistToTargets(browserslist()),
-    },
-  },
   build: {
     outDir: "dist",
-    cssMinify: "lightningcss",
     rollupOptions: {
-      // The site ships zero JavaScript, so the stylesheet is the only entry.
-      input: "styles/site.css",
+      // The theme carries its own assets; Vite still needs an entry, so we
+      // feed it a placeholder that staticOutput deletes afterwards.
+      input: "empty-entry.js",
+      output: {
+        entryFileNames: "_empty.js",
+      },
     },
   },
   run: {
     tasks: {
-      tokens: {
-        command:
-          "vp exec style-dictionary build --config style-dictionary.config.js",
-      },
       dev: {
         command: "vp dev",
         cache: false,
-        dependsOn: ["tokens"],
       },
       build: {
         command: "vp build",
-        dependsOn: ["tokens"],
       },
       preview: {
         command: "vp preview --port 4173 --strictPort",

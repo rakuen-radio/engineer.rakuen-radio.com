@@ -6,16 +6,17 @@
  * [`template.ts`](./template.ts) renders it to the HTML string ox-content
  * expects.
  *
- * Colors and typefaces are read from the generated design tokens, so only
- * the measurements of the OG canvas itself live here.
+ * Colors and typefaces come from the default theme, the same source the
+ * pages are styled from, so the card follows the site without a palette of
+ * its own.
  */
-import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
-import { raw, type OgImageTemplateProps } from "@ox-content/vite-plugin";
+import {
+  defaultTheme,
+  raw,
+  type OgImageTemplateProps,
+} from "@ox-content/vite-plugin";
 
-// ox-content bundles this template into `.cache/og-images/` before running
-// it, so the tokens are read from the project root, not from next to it.
-const tokens = readFileSync(resolve("styles/tokens.css"), "utf-8");
+const { colors = {}, fonts = {} } = defaultTheme;
 
 export function OgCard(props: OgImageTemplateProps) {
   const { title, description, siteName } = props;
@@ -33,7 +34,6 @@ export function OgCard(props: OgImageTemplateProps) {
       {/* `raw`: the runtime escapes text children, which would mangle the CSS. */}
       <style>
         {raw(`
-        ${tokens}
         .og {
           width: 100%;
           height: 100%;
@@ -41,28 +41,28 @@ export function OgCard(props: OgImageTemplateProps) {
           flex-direction: column;
           justify-content: center;
           padding: 64px 80px;
-          background: var(--rkn-color-background-body);
-          border-top: 12px solid var(--rkn-color-accent-primary);
-          font-family: var(--rkn-font-family-sans);
+          background: ${colors.background};
+          border-top: 12px solid ${colors.primary};
+          font-family: ${fonts.sans};
         }
         .title {
           font-size: 60px;
-          font-weight: var(--rkn-font-weight-bold);
-          line-height: var(--rkn-font-leading-tight);
-          color: var(--rkn-color-text-primary);
+          font-weight: 700;
+          line-height: 1.3;
+          color: ${colors.text};
           margin: 0 0 24px;
         }
         .description {
           font-size: 28px;
-          line-height: var(--rkn-font-leading-base);
-          color: var(--rkn-color-text-muted);
+          line-height: 1.5;
+          color: ${colors.textMuted};
           margin: 0;
         }
         .site-name {
           margin-top: auto;
           font-size: 24px;
-          font-weight: var(--rkn-font-weight-bold);
-          color: var(--rkn-color-accent-secondary);
+          font-weight: 700;
+          color: ${colors.primary};
         }
       `)}
       </style>
