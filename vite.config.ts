@@ -77,12 +77,12 @@ export default defineConfig({
         cache: false,
         dependsOn: ["build"],
       },
-      "vrt-update": {
+      "vrt:update": {
         command: "vp exec playwright test --update-snapshots=all",
         cache: false,
         dependsOn: ["build"],
       },
-      "vrt-commit": {
+      "vrt:commit": {
         command: "vp exec node scripts/commit-vrt-snapshots.ts",
         cache: false,
       },
