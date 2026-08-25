@@ -23,7 +23,7 @@ export default defineConfig({
     },
   },
   use: {
-    baseURL: "http://localhost:4173",
+    baseURL: "http://localhost:4517",
   },
   projects: [
     {
@@ -39,8 +39,11 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: "vp preview --port 4173 --strictPort",
-    url: "http://localhost:4173",
-    reuseExistingServer: !process.env.CI,
+    command: "vp preview --port 4517 --strictPort",
+    url: "http://localhost:4517",
+    // Never reuse a server we didn't start: a foreign process on the port
+    // would get screenshotted as if it were this site. With strictPort the
+    // preview fails loudly instead.
+    reuseExistingServer: false,
   },
 });

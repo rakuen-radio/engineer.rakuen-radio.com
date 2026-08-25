@@ -68,7 +68,7 @@ export default defineConfig({
         command: "vp build",
       },
       preview: {
-        command: "vp preview --port 4173 --strictPort",
+        command: "vp preview --port 4517 --strictPort",
         cache: false,
         dependsOn: ["build"],
       },
