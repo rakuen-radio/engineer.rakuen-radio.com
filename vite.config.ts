@@ -1,6 +1,5 @@
 import { defineConfig } from "vite-plus";
 import { defaultTheme, defineTheme, oxContent } from "@ox-content/vite-plugin";
-import { notFoundPage } from "./plugins/not-found-page";
 import pkg from "./package.json" with { type: "json" };
 
 const SITE_NAME = "エンジニアの楽園ラジオ";
@@ -24,9 +23,12 @@ export default defineConfig({
         siteName: SITE_NAME,
         siteUrl: pkg.homepage,
         generateOgImage: true,
-        // Explicit empty navigation instead of the derived file tree, which
-        // would list the 404 page in the sidebar.
-        navigation: [],
+        // content/404.md -> dist/404.html, where Cloudflare's
+        // `not_found_handling: "404-page"` looks for it.
+        notFound: true,
+        // Honor per-page frontmatter chrome flags (index.md hides the
+        // sidebar; the site is a single page).
+        pageChrome: true,
         // The stock theme, on purpose: this repo is a foundation, so the
         // design should not make statements the real site will have to undo.
         theme: defineTheme({
@@ -34,7 +36,8 @@ export default defineConfig({
           footer: {
             copyright: `© 2026 ${SITE_NAME}`,
           },
-          // No sidebar (navigation is empty), so don't reserve its column.
+          // `sidebar: false` removes the sidebar element but the layout
+          // still reserves its column; collapse it.
           layout: {
             sidebarWidth: "0px",
           },
@@ -54,7 +57,6 @@ export default defineConfig({
         }),
       },
     }),
-    notFoundPage(),
   ],
   run: {
     tasks: {
