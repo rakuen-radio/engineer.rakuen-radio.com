@@ -1,0 +1,19 @@
+{
+  "name": "engineer.rakuen-radio.com",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.22.0",
+  "engines": {
+    "node": ">=26"
+  },
+  "homepage": "https://engineer.rakuen-radio.com",
+  "devDependencies": {
+    "@ox-content/vite-plugin": "catalog:",
+    "@playwright/test": "catalog:",
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vite-plus": "catalog:",
+    "wrangler": "catalog:"
+  }
+}

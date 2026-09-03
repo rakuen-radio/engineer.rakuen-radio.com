@@ -1,0 +1,19 @@
+catalog:
+  # Exact pin while on the 3.0 alpha line.
+  '@ox-content/vite-plugin': 3.0.0-alpha.1
+  '@playwright/test': ^1.55.0
+  '@types/node': ^26.2.0
+  typescript: ^7.0.2
+  vite: ^8.2.2
+  vite-plus: ^0.2.9
+  wrangler: ^4.125.0
+allowBuilds:
+  esbuild: true
+  # puppeteer is pulled in via @mermaid-js/mermaid-cli (unused: no mermaid
+  # diagrams on this site); keep its Chrome download disabled.
+  puppeteer: false
+  workerd: true
+minimumReleaseAgeExclude:
+  # Every @ox-content release is younger than the policy cutoff at the
+  # moment it is picked up; the rest of the tree is not.
+  - '@ox-content/*'
