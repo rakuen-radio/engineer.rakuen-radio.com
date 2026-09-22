@@ -8,6 +8,8 @@
   },
   "homepage": "https://engineer.rakuen-radio.com",
   "devDependencies": {
+    "@ox-content/theme-color-voltage": "catalog:",
+    "@ox-content/theme-voltage": "catalog:",
     "@ox-content/vite-plugin": "catalog:",
     "@playwright/test": "catalog:",
     "@types/node": "catalog:",

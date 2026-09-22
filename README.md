@@ -1,6 +1,6 @@
 # engineer.rakuen-radio.com
 
-「エンジニアの楽園ラジオ」のウェブサイト。[Ox Content](https://ox-content.void.app/) で `content/index.md` から完全静的な1ページを生成し、Cloudflare Workers(Static Assets)へ配信します。自前の JavaScript はゼロで、配信されるのはテーマ由来のアセットだけです。
+「Findy presents エンジニアの楽園ラジオ」のウェブサイト。[Ox Content](https://ox-content.void.app/) で `content/index.md` から静的な1ページを生成し、Cloudflare Workers(Static Assets)へ配信します。デザインにはOx ContentのVoltage themeを利用しています。
 
 ## 開発
 
@@ -19,10 +19,11 @@ vpr dev
 | `vpr vrt` / `vpr vrt:update` | VRT 実行 / ベースライン更新 |
 | `vpr deploy` | Cloudflare Workers へデプロイ(`main` への push で自動実行) |
 
-- 本文は `content/index.md`(と 404 用の `content/404.md`)。見た目は Ox Content の
-  **Theme API**(`defineTheme({ extends: defaultTheme })`)そのまま — 土台なので独自デザインは持たない
+- 本文は `content/index.md`(と404用の `content/404.md`)。見た目はOx Contentの
+  **Voltage skin**と**Voltage color theme**をTheme APIで合成する
+- 番組の画像素材は `public/assets/` に置き、[vim-jp-radio/LP](https://github.com/vim-jp-radio/LP)の素材を利用する
 - OG 画像は [`og/card.tsx`](og/card.tsx) をビルド時にレンダリングして生成する
-  (Playwright の Chromium が必要)。色もテーマのパレットを参照する
+  (PlaywrightのChromiumが必要)。色と書体はVoltage themeのパレットを参照する
 - VRT のベースラインは CI(Linux)が正。**Update VRT snapshots** ワークフローの手動実行で更新する
 - デプロイに必要な Secrets: `CLOUDFLARE_API_TOKEN`(Workers Scripts:Edit)/ `CLOUDFLARE_ACCOUNT_ID`
 

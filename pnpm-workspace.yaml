@@ -1,5 +1,7 @@
 catalog:
   # Exact pin while on the 3.0 alpha line.
+  '@ox-content/theme-color-voltage': 3.0.0-alpha.1
+  '@ox-content/theme-voltage': 3.0.0-alpha.1
   '@ox-content/vite-plugin': 3.0.0-alpha.1
   '@playwright/test': ^1.55.0
   '@types/node': ^26.2.0
