@@ -2,7 +2,7 @@
   "name": "engineer.rakuen-radio.com",
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@11.22.0",
+  "packageManager": "pnpm@12.5.1",
   "engines": {
     "node": ">=26"
   },
