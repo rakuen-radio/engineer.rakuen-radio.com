@@ -6,6 +6,12 @@ settings:
 
 catalogs:
   default:
+    '@ox-content/theme-color-voltage':
+      specifier: 3.0.0-alpha.1
+      version: 3.0.0-alpha.1
+    '@ox-content/theme-voltage':
+      specifier: 3.0.0-alpha.1
+      version: 3.0.0-alpha.1
     '@ox-content/vite-plugin':
       specifier: 3.0.0-alpha.1
       version: 3.0.0-alpha.1
@@ -32,6 +38,12 @@ importers:
 
   .:
     devDependencies:
+      '@ox-content/theme-color-voltage':
+        specifier: 'catalog:'
+        version: 3.0.0-alpha.1(@ox-content/vite-plugin@3.0.0-alpha.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3)(vite@8.2.2(@types/node@26.2.0)(esbuild@0.28.1)(yaml@2.9.0)))
+      '@ox-content/theme-voltage':
+        specifier: 'catalog:'
+        version: 3.0.0-alpha.1(@ox-content/vite-plugin@3.0.0-alpha.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3)(vite@8.2.2(@types/node@26.2.0)(esbuild@0.28.1)(yaml@2.9.0)))
       '@ox-content/vite-plugin':
         specifier: 'catalog:'
         version: 3.0.0-alpha.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3)(vite@8.2.2(@types/node@26.2.0)(esbuild@0.28.1)(yaml@2.9.0))
@@ -893,6 +905,22 @@ packages:
 
   '@ox-content/napi@3.0.0-alpha.1':
     resolution: {integrity: sha512-aYTpv3Eol0zHNwvVrQVF3kPxaO1Ksahqm3MlXh/jhkLApyIo3yPVrEz4KdIuPgWCzx+uYs56qmweNINdF8lQ3g==}
+
+  '@ox-content/theme-color-voltage@3.0.0-alpha.1':
+    resolution: {integrity: sha512-kV8Aq7oKTU+IpTqOXqEilULPaIkRAnoc4UQ5ePjk8xLyy2BJ/nteK/+kp9UIJxDL9svval5FAFhcvjSHs7JWVQ==}
+    peerDependencies:
+      '@ox-content/vite-plugin': '>=2.84.0'
+    peerDependenciesMeta:
+      '@ox-content/vite-plugin':
+        optional: true
+
+  '@ox-content/theme-voltage@3.0.0-alpha.1':
+    resolution: {integrity: sha512-zEM7HPBkp1VCWfiiymVZtBWkazts35QMqcshTNpNL3wH3PJilTi6auNAE7GhTNiGX2ARt89hTcTTFwXj0jByyg==}
+    peerDependencies:
+      '@ox-content/vite-plugin': '>=2.84.0'
+    peerDependenciesMeta:
+      '@ox-content/vite-plugin':
+        optional: true
 
   '@ox-content/vite-plugin@3.0.0-alpha.1':
     resolution: {integrity: sha512-VKqJNUu9aDj2z6c9doHS/4I0lmTDe24veZSLg0oZ00ejXbYezFf4mNToSz+ZMCSijl2+Rs3pjq5M14OVKaidQQ==}
@@ -3769,6 +3797,14 @@ snapshots:
       '@ox-content/binding-linux-x64-gnu': 3.0.0-alpha.1
       '@ox-content/binding-linux-x64-musl': 3.0.0-alpha.1
       '@ox-content/binding-win32-x64-msvc': 3.0.0-alpha.1
+
+  '@ox-content/theme-color-voltage@3.0.0-alpha.1(@ox-content/vite-plugin@3.0.0-alpha.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3)(vite@8.2.2(@types/node@26.2.0)(esbuild@0.28.1)(yaml@2.9.0)))':
+    optionalDependencies:
+      '@ox-content/vite-plugin': 3.0.0-alpha.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3)(vite@8.2.2(@types/node@26.2.0)(esbuild@0.28.1)(yaml@2.9.0))
+
+  '@ox-content/theme-voltage@3.0.0-alpha.1(@ox-content/vite-plugin@3.0.0-alpha.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3)(vite@8.2.2(@types/node@26.2.0)(esbuild@0.28.1)(yaml@2.9.0)))':
+    optionalDependencies:
+      '@ox-content/vite-plugin': 3.0.0-alpha.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3)(vite@8.2.2(@types/node@26.2.0)(esbuild@0.28.1)(yaml@2.9.0))
 
   '@ox-content/vite-plugin@3.0.0-alpha.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3)(vite@8.2.2(@types/node@26.2.0)(esbuild@0.28.1)(yaml@2.9.0))':
     dependencies:
