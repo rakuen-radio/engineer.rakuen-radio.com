@@ -1,14 +1,13 @@
 catalog:
-  # Exact pin while on the 3.0 alpha line.
-  '@ox-content/theme-color-voltage': 3.0.0-alpha.1
-  '@ox-content/theme-voltage': 3.0.0-alpha.1
-  '@ox-content/vite-plugin': 3.0.0-alpha.1
-  '@playwright/test': ^1.55.0
-  '@types/node': ^26.2.0
+  '@ox-content/theme-color-voltage': 3.2.8
+  '@ox-content/theme-voltage': 3.2.8
+  '@ox-content/vite-plugin': 3.2.8
+  '@playwright/test': ^1.63.0
+  '@types/node': ^26.6.2
   typescript: ^7.0.2
-  vite: ^8.2.2
-  vite-plus: ^0.2.9
-  wrangler: ^4.125.0
+  vite: npm:@voidzero-dev/vite-plus-core@0.3.3
+  vite-plus: 0.3.3
+  wrangler: ^4.135.0
 allowBuilds:
   esbuild: true
   # puppeteer is pulled in via @mermaid-js/mermaid-cli (unused: no mermaid
@@ -19,3 +18,10 @@ minimumReleaseAgeExclude:
   # Every @ox-content release is younger than the policy cutoff at the
   # moment it is picked up; the rest of the tree is not.
   - '@ox-content/*'
+overrides:
+  vite@*: 'catalog:'
+peerDependencyRules:
+  allowAny:
+    - vite
+  allowedVersions:
+    vite: '*'

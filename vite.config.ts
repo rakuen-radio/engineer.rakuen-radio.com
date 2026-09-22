@@ -62,6 +62,9 @@ export default defineConfig({
             .header {
               position: fixed;
               inset: 0 0 auto;
+              background-color: rgba(0, 0, 31, 0.6);
+              backdrop-filter: none !important;
+              -webkit-backdrop-filter: none !important;
               opacity: 0;
               visibility: hidden;
               pointer-events: none;
