@@ -73,6 +73,6 @@ vim-jpを飛び立ち、プログラミングから子育てに至るまで、�
     Theme music: Jun Tanaka (GENTOUKI)<br>
     Cover art design: Kazuaki Komai (こまゐ図考室)<br>
     Production: Sha-la-la Company<br>
-    rakuen radio team: conao3, kawarimidoll, kleha, ryoppippi, and wagomu
+    rakuen radio team: conao3, kawarimidoll, kleha, ryoppippi, ubugeeei, and wagomu
   </p>
 </div>
