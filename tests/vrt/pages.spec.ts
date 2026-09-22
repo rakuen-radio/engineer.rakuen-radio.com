@@ -29,6 +29,8 @@ test("home header appears after the title scrolls away", async ({ page }) => {
     window.scrollTo(0, element.getBoundingClientRect().bottom + window.scrollY + 1);
   });
   await expect(header).toHaveClass(/is-visible/);
+  await expect(header).not.toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+  await expect(header).toHaveCSS("backdrop-filter", "none");
   await page.evaluate(() => window.scrollTo(0, 0));
   await expect(header).not.toHaveClass(/is-visible/);
 });
