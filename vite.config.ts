@@ -16,10 +16,6 @@ export default defineConfig({
       srcDir: "content",
       outDir: "dist",
       highlight: true,
-      ogImage: true,
-      ogImageOptions: {
-        template: "./og/template.ts",
-      },
       docs: { enabled: false },
       // One page, no search UI: the index would just be dead weight.
       search: false,
@@ -28,7 +24,7 @@ export default defineConfig({
       ssg: {
         siteName: SITE_NAME,
         siteUrl: pkg.homepage,
-        generateOgImage: true,
+        ogImage: `${pkg.homepage}/assets/og-image.png`,
         // content/404.md -> dist/404.html, where Cloudflare's
         // `not_found_handling: "404-page"` looks for it.
         notFound: true,

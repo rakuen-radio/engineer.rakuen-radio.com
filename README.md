@@ -22,8 +22,7 @@ vpr dev
 - 本文は `content/index.md`(と404用の `content/404.md`)。見た目はOx Contentの
   **Voltage skin**と**Voltage color theme**をTheme APIで合成する
 - 番組の画像素材は `public/assets/` に置き、[vim-jp-radio/LP](https://github.com/vim-jp-radio/LP)の素材を利用する
-- OG 画像は [`og/card.tsx`](og/card.tsx) をビルド時にレンダリングして生成する
-  (PlaywrightのChromiumが必要)。色と書体はVoltage themeのパレットを参照する
+- OG画像は `public/assets/og-image.png` を利用する
 - VRT のベースラインは CI(Linux)が正。**Update VRT snapshots** ワークフローの手動実行で更新する
 - デプロイに必要な Secrets: `CLOUDFLARE_API_TOKEN`(Workers Scripts:Edit)/ `CLOUDFLARE_ACCOUNT_ID`
 
