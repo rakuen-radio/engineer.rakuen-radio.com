@@ -16,10 +16,6 @@ export default defineConfig({
       srcDir: "content",
       outDir: "dist",
       highlight: true,
-      ogImage: true,
-      ogImageOptions: {
-        template: "./og/template.ts",
-      },
       docs: { enabled: false },
       // One page, no search UI: the index would just be dead weight.
       search: false,
@@ -28,7 +24,7 @@ export default defineConfig({
       ssg: {
         siteName: SITE_NAME,
         siteUrl: pkg.homepage,
-        generateOgImage: true,
+        ogImage: `${pkg.homepage}/assets/og-image.png`,
         // content/404.md -> dist/404.html, where Cloudflare's
         // `not_found_handling: "404-page"` looks for it.
         notFound: true,
@@ -46,6 +42,15 @@ export default defineConfig({
             darkTokens: voltageColors.darkTokens,
             footer: {
               copyright: "© Forcode Co., Ltd.",
+            },
+            embed: {
+              head: `
+                <link rel="icon" type="image/png" href="/assets/favicon-96x96.png" sizes="96x96">
+                <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+                <link rel="shortcut icon" href="/assets/favicon.ico">
+                <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+                <link rel="manifest" href="/assets/site.webmanifest">
+              `,
             },
             // `sidebar: false` removes the sidebar element but the layout
             // still reserves its column; collapse it.

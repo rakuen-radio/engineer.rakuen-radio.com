@@ -1,0 +1,21 @@
+{
+  "name": "Findy presents エンジニアの楽園ラジオ",
+  "short_name": "エンジニアの楽園ラジオ",
+  "icons": [
+    {
+      "src": "/assets/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "theme_color": "#00001f",
+  "background_color": "#00001f",
+  "display": "standalone"
+}
