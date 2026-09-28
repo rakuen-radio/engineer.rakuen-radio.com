@@ -12,9 +12,11 @@ const pages = [
 for (const { path, name } of pages) {
   test(`${name} (${path})`, async ({ page }) => {
     await page.goto(path);
-    await page.locator("img").evaluateAll((images) =>
-      Promise.all(images.map((image) => image.decode().catch(() => undefined))),
-    );
+    await page
+      .locator("img")
+      .evaluateAll((images) =>
+        Promise.all(images.map((image) => image.decode().catch(() => undefined))),
+      );
     await expect(page).toHaveScreenshot(`${name}.png`, { fullPage: true });
   });
 }
