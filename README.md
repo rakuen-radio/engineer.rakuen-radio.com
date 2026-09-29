@@ -12,12 +12,12 @@ vp install
 vpr dev
 ```
 
-| タスク | 内容 |
-| --- | --- |
-| `vpr build` | `dist/` にビルド |
-| `vpr preview` | `dist/` をローカル配信(:4517) |
-| `vpr vrt` / `vpr vrt:update` | VRT 実行 / ベースライン更新 |
-| `vpr deploy` | Cloudflare Workers へデプロイ(`main` への push で自動実行) |
+| タスク                       | 内容                                                       |
+| ---------------------------- | ---------------------------------------------------------- |
+| `vpr build`                  | `dist/` にビルド                                           |
+| `vpr preview`                | `dist/` をローカル配信(:4517)                              |
+| `vpr vrt` / `vpr vrt:update` | VRT 実行 / ベースライン更新                                |
+| `vpr deploy`                 | Cloudflare Workers へデプロイ(`main` への push で自動実行) |
 
 - 本文は `content/index.md`(と404用の `content/404.md`)。見た目はOx Contentの
   **Voltage skin**と**Voltage color theme**をTheme APIで合成する

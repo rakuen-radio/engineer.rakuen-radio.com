@@ -1,12 +1,8 @@
 {
   "name": "engineer.rakuen-radio.com",
   "private": true,
-  "type": "module",
-  "packageManager": "pnpm@12.5.1",
-  "engines": {
-    "node": ">=26"
-  },
   "homepage": "https://engineer.rakuen-radio.com",
+  "type": "module",
   "devDependencies": {
     "@ox-content/theme-color-voltage": "catalog:",
     "@ox-content/theme-voltage": "catalog:",
@@ -17,5 +13,9 @@
     "vite": "catalog:",
     "vite-plus": "catalog:",
     "wrangler": "catalog:"
-  }
+  },
+  "engines": {
+    "node": ">=26"
+  },
+  "packageManager": "pnpm@12.5.1"
 }

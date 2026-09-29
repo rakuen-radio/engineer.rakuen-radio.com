@@ -14,8 +14,7 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   reporter: [["list"], ["html", { open: "never" }]],
-  snapshotPathTemplate:
-    "{testDir}/__screenshots__/{projectName}-{platform}/{arg}{ext}",
+  snapshotPathTemplate: "{testDir}/__screenshots__/{projectName}-{platform}/{arg}{ext}",
   expect: {
     toHaveScreenshot: {
       animations: "disabled",

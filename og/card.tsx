@@ -10,10 +10,7 @@
  */
 import voltageColors from "@ox-content/theme-color-voltage";
 import voltage from "@ox-content/theme-voltage";
-import {
-  raw,
-  type OgImageTemplateProps,
-} from "@ox-content/vite-plugin";
+import { raw, type OgImageTemplateProps } from "@ox-content/vite-plugin";
 
 const colors = voltageColors.darkColors ?? voltageColors.colors ?? {};
 const { fonts = {} } = voltage;
@@ -28,9 +25,7 @@ export function OgCard(props: OgImageTemplateProps) {
         <h1 class="title">{title}</h1>
         {description && <p class="description">{description}</p>}
         {/* On the home page the title already is the site name. */}
-        {siteName && siteName !== title && (
-          <span class="site-name">{siteName}</span>
-        )}
+        {siteName && siteName !== title && <span class="site-name">{siteName}</span>}
       </div>
       {/* `raw`: the runtime escapes text children, which would mangle the CSS. */}
       <style>
