@@ -66,6 +66,12 @@ vim-jpを飛び立ち、プログラミングから子育てに至るまで、�
   <p>Vim/Neovimのプラグイン開発用エコシステムDenopsの作者。小学校の時に「ゲームを作ってみたい」と思ったことがきっかけでプログラミングにハマる。私生活のほとんどの時間をプログラミングに費やした。『Software Design』への寄稿や、『VimConf』、『Deno Fest』など多数のイベント登壇あり。トヨクモ株式会社の『Thanks OSS Award 2022』を受賞。好物は寿司とビールとラーメン。</p>
 </div>
 
+## おたより
+
+この番組では皆さんからのおたよりを募集しています。こちらのフォームから投稿をお願いします。
+
+<iframe class="message-form" src="https://docs.google.com/forms/d/e/1FAIpQLSedx3TiUksiJmNAHzJlfenu3Wnq9047LAZF76iVawMCRavk1g/viewform?embedded=true" title="エンジニアの楽園ラジオ おたよりフォーム" loading="lazy">読み込んでいます…</iframe>
+
 <div class="credits">
   <p>
     Personality: lambdalisue &amp; tomoya<br>
