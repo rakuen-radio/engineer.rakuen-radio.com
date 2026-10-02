@@ -251,6 +251,14 @@ export default defineConfig({
               object-fit: cover;
             }
 
+            .message-form {
+              width: 100%;
+              min-height: 70rem;
+              margin-block-start: 1rem;
+              border: 0;
+              frame-sizing: content;
+            }
+
             .credits {
               margin-top: clamp(4rem, 10vw, 8rem);
               font-size: 0.875rem;
