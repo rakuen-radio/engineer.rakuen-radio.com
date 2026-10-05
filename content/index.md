@@ -1,6 +1,6 @@
 ---
 title: Findy presents エンジニアの楽園ラジオ
-description: Tokyofm ポッドキャスト公式のテック系ポッドキャスト。毎月2回配信です。
+description: Tokyofm ポッドキャスト公式のテック系ポッドキャスト。毎月2回、お昼12時から配信しています。
 sidebar: false
 ---
 
@@ -14,7 +14,7 @@ sidebar: false
 vim-jpを飛び立ち、プログラミングから子育てに至るまで、楽園を求めてさすらいます。<br>
 いつか楽園に辿りつくべく、各分野の様々なゲストを交えながら、楽しく雑談してきます。
 
-配信は毎月2回、第1・第3月曜日です。
+毎月2回、お昼12時から配信しています。
 
 ## 配信プラットフォーム
 
@@ -51,7 +51,7 @@ vim-jpを飛び立ち、プログラミングから子育てに至るまで、�
 <div class="personality">
   <div class="personality-heading">
     <h3>tomoya</h3>
-    <p><a href="https://x.com/tomoyaton">X</a> / <a href="https://github.com/tomoya">GitHub</a> / <a href="https://blog.tomoya.dev/">Webサイト</a></p>
+    <p><a href="https://x.com/tomoyaton">X</a> / <a href="https://github.com/tomoya">GitHub</a> / <a href="https://blog.tomoya.dev/">Blog</a></p>
   </div>
   <img src="/assets/tomoya.jpg" alt="tomoya" width="320" height="320">
   <p>1983年生まれ。起業家、及びフロントエンドからバックエンドまで幅広くカバーするWebエンジニア。2010年に起業。2015年にイグジット。2017年にフォーコード株式会社を設立して、現在は日本で一番多くのVimmerと一緒に仕事するEmacserとして、大企業システムを作ったりしています。著書に『Atom実践入門』、『［改訂新版］Emacs実践入門』、『CircleCI実践入門』（共に技術評論社）がある。</p>
